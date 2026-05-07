@@ -1,0 +1,39 @@
+POST http://localhost:3000/videos
+Content-Type: application/json
+
+{
+  "title": "Video 0I9I9I9I9I9I9I99 node",
+  "description": "DESCRIÇÃO 5 NO POST",
+  "duration": 60
+}
+
+###
+
+// GET COM SEARCH 
+
+GET  http://localhost:3000/videos?search=node
+
+###
+
+// GET COM TODOS REGISTROS NA TABELA
+
+GET  http://localhost:3000/videos
+
+
+###
+
+
+PUT  http://localhost:3000/videos/a2c09ca6-ea4c-4e93-b7a8-ff355546e42b
+Content-Type: application/json
+
+{
+  "title": "ATUALIZADO 05",
+  "description": "ATUALIZADO para 06",
+  "duration": 200
+}
+
+
+###
+
+
+DELETE   http://localhost:3000/videos/45ed63eb-095f-4696-89ba-bb0652441a09
