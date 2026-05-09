@@ -19,11 +19,13 @@ REST API built with Fastify and PostgreSQL.
 
 ## Project Structure
 
+```txt
 src/
 ├── app.js
 ├── server.js
 ├── routes/
 ├── database/
+```
 
 ## How to Run
 
