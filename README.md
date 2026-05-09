@@ -23,8 +23,14 @@ REST API built with Fastify and PostgreSQL.
 src/
 ├── app.js
 ├── server.js
-├── routes/
+│
 ├── database/
+│   ├── database-postgres.js
+│   ├── database_memory.js
+│   └── db.js
+│
+└── routes/
+    └── videos-routes.js
 ```
 
 ## How to Run
