@@ -6,7 +6,44 @@ export async function videosRoutes(app) {
 
     // ==========================================  GET ====================================================
 
-app.get('/videos', async (request, reply) => {
+app.get('/videos', {
+    schema: {
+        tags: ['Videos'],
+        description: 'Lista todos os vídeos cadastrados',
+        querystring: {
+            type: 'object',
+            properties: {
+                search: {
+                    type: 'string'
+                }
+            }
+        },
+        response: {
+            200: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    properties: {
+                        id: {
+                            type: 'string'
+                        },
+                        title: {
+                            type: 'string'
+                        },
+                        description: {
+                            type: 'string'
+                        },
+                        duration: {
+                            type: 'number'
+                        },
+                    }
+
+                }
+            }
+        } 
+    }
+}
+    , async (request, reply) => {
     const { search } = request.query;
 
     const videos = await database.list(search);
