@@ -9,6 +9,8 @@ REST API built with Fastify and PostgreSQL.
 - PostgreSQL
 - Neon
 - Dotenv
+- Swagger
+- OpenAPI
 
 ## Features
 
@@ -16,6 +18,7 @@ REST API built with Fastify and PostgreSQL.
 - List videos
 - Update videos
 - Delete videos
+- Swagger/OpenAPI documentation
 
 ## Project Structure
 
@@ -26,7 +29,7 @@ src/
 │
 ├── database/
 │   ├── database-postgres.js
-│   ├── database_memory.js
+│   ├── database-memory.js
 │   └── db.js
 │
 └── routes/
@@ -52,6 +55,16 @@ node src/server.js
 Create a `.env` file in the root directory:
 
 DATABASE_URL=your_connection_string
+
+## API Documentation
+
+Swagger UI available at:
+
+```txt
+
+http://localhost:3000/docs
+
+```
 
 ## Endpoints
 
