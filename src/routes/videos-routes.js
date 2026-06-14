@@ -1,188 +1,87 @@
-import { DatabasePostgres } from '../database/database-postgres.js';
+import { DatabasePostgres } from "../database/database-postgres.js";
+import {
+  createVideosSchema,
+  deleteVideosSchema,
+  getVideosSchema,
+  putVideosSchema,
+} from "../schemas/videos-schema.js";
 
 const database = new DatabasePostgres();
 
 export async function videosRoutes(app) {
+  // ==========================================  GET ====================================================
 
-    // ==========================================  GET ====================================================
+  app.get(
+    "/videos",
+    {
+      schema: getVideosSchema,
+    },
+    async (request, reply) => {
+      const { search } = request.query;
 
-app.get('/videos', {
-    schema: {
-        tags: ['Videos'],
-        description: 'Lista todos os vídeos cadastrados',
-        querystring: {
-            type: 'object',
-            properties: {
-                search: {
-                    type: 'string'
-                }
-            }
-        },
-        response: {
-            200: {
-                description: 'Lista de vídeos retornada com sucesso',
-                type: 'array',
-                items: {
-                    type: 'object',
-                    properties: {
-                        id: {
-                            type: 'string'
-                        },
-                        title: {
-                            type: 'string'
-                        },
-                        description: {
-                            type: 'string'
-                        },
-                        duration: {
-                            type: 'number'
-                        },
-                    }
+      const videos = await database.list(search);
 
-                }
-            }
-        } 
-    }
-}
-    , async (request, reply) => {
-    const { search } = request.query;
+      return reply.send(videos);
+    },
+  );
 
-    const videos = await database.list(search);
+  // ==========================================  POST ====================================================
 
-    return reply.send(videos);
-})
+  app.post(
+    "/videos",
+    {
+      schema: createVideosSchema,
+    },
 
-// ==========================================  POST ====================================================
+    async (request, reply) => {
+      const { title, description, duration } = request.body;
 
-app.post('/videos', {
-
-    schema: {
-        tags: ['Videos'],
-        description: 'Cria um novo vídeo',
-        body: {
-            type: 'object',
-            required: ['title','description','duration'],
-            properties: {   
-                title: {
-                    type: 'string',
-                },                
-                description: {
-                    type: 'string',
-                },
-                duration: {
-                    type: 'number',
-                }
-            }
-        },
-        response: {
-            201: {
-                description: 'Vídeo criado com sucesso',
-                type: 'null',
-            }
-        }
-    }
-}
-    
-    , async (request, reply) => {
-
-    const {title, description, duration} = request.body;
-
-   await database.create({
+      await database.create({
         title,
         description,
-        duration
-    })
+        duration,
+      });
 
-    return reply.status(201).send();
-})
+      return reply.status(201).send();
+    },
+  );
 
-// ==========================================  PUT / UPDATE ==============================================
+  // ==========================================  PUT / UPDATE ==============================================
 
-app.put('/videos/:id', {
-        schema: {
-            tags: ['Videos'],
-            description: 'Atualiza um vídeo existente',
-        params: {
-            type: 'object',
-            required: ['id'],
-            properties: {
-                id: {
-                    type: 'string'
-                }
-            }
-        },
-        body: {
-            type: 'object',
-            required: ['title', 'description', 'duration'],
-            properties: {
-                title: {
-                    type: 'string'
-                },
-                description: {
-                    type: 'string'
-                },
-                duration: {
-                    type: 'number'
-                }
-            }
-        },
-        response: {
-            204: {
-                description: 'Vídeo atualizado com sucesso',
-                type: 'null'
-            }
-        }
-    }
-        },
-            
-    
-    async(request, reply) => {
+  app.put(
+    "/videos/:id",
+    {
+      schema: putVideosSchema,
+    },
 
-        const videoId = request.params.id;
-        const {title, description, duration} = request.body;
+    async (request, reply) => {
+      const videoId = request.params.id;
+      const { title, description, duration } = request.body;
 
-        await database.update(videoId, {
-            title,
-            description,
-            duration
-        })
+      await database.update(videoId, {
+        title,
+        description,
+        duration,
+      });
 
-        return reply.status(204).send();
-        
-    })
+      return reply.status(204).send();
+    },
+  );
 
-// ==========================================  DELETE ====================================================
+  // ==========================================  DELETE ====================================================
 
-app.delete('/videos/:id', {
+  app.delete(
+    "/videos/:id",
+    {
+      schema: deleteVideosSchema,
+    },
 
-    schema: {
-        tags: ['Videos'],
-        description: 'Remove um Vídeo',
-        params: {
-            type: 'object',
-            required: ['id'],
-            properties: {
-                id: {
-                    type: 'string',
-                }
-            }
-        },
-        response: {
-            204: {
-                description: 'Vídeo excluído com sucesso',
-                type: 'null',
-            }
-        }
-    }
+    async (request, reply) => {
+      const videoId = request.params.id;
 
+      await database.delete(videoId);
 
-}, async (request, reply) => {
-
-    const videoId = request.params.id;
-
-    await database.delete(videoId);
-
-    return reply.status(204).send();
-})
-    
+      return reply.status(204).send();
+    },
+  );
 }

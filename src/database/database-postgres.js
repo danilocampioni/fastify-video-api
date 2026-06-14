@@ -4,7 +4,7 @@ import sql from "./db.js";
 export class DatabasePostgres {
 
    async list(search) {
-    console.log('search:', search);
+    
         let videos;
 
         if(search) {
