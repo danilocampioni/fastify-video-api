@@ -33,8 +33,75 @@ src/
 │   └── db.js
 │
 └── routes/
-    └── videos-routes.js
+│   └── videos-routes.js
+│
+└── schemas/
+    └── videos-schemas.js
 ```
+
+## Architecture
+
+routes/ → defines API endpoints and request flow
+
+schemas/ → OpenAPI documentation and request validation
+
+database/ → persistence and data access layer
+
+app.js → configures Fastify and plugins
+
+server.js → starts the application
+
+## Request Flow
+
+Example:
+
+```txt
+Client Request
+↓
+Fastify Route (videos-routes.js)
+↓
+Schema Validation (videos-schema.js)
+↓
+Database Layer (database-postgres.js)
+↓
+PostgreSQL
+↓
+HTTP Response
+
+This flow separates responsibilities and improves maintainability.
+
+```
+
+## Validation
+
+The API uses Fastify schemas to:
+
+- validate request body
+- validate route parameters
+- validate query parameters
+- generate OpenAPI documentation automatically
+
+Current validations include:
+
+- minimum title length
+- minimum description length
+- positive duration values
+
+## Current Status
+
+Implemented features:
+
+- CRUD for videos
+- PostgreSQL integration
+- Fastify route organization
+- OpenAPI documentation
+- Swagger UI
+- request validation with schemas
+- modular schema architecture
+
+## Planned to finalize
+
+- deploy and publication
 
 ## How to Run
 
