@@ -53,12 +53,15 @@ export const createVideosSchema = {
     properties: {
       title: {
         type: "string",
+        minLength: 3,
       },
       description: {
         type: "string",
+        minLength: 10,
       },
       duration: {
         type: "number",
+        minimum: 1,
       },
     },
   },
@@ -70,7 +73,7 @@ export const createVideosSchema = {
   },
 };
 
-export const putVideosSchema = {
+export const updateVideosSchema = {
   tags: ["Videos"],
 
   description: "Atualiza um vídeo existente",
@@ -90,12 +93,15 @@ export const putVideosSchema = {
     properties: {
       title: {
         type: "string",
+        minLength: 3,
       },
       description: {
         type: "string",
+        minLength: 10,
       },
       duration: {
         type: "number",
+        minimum: 1,
       },
     },
   },

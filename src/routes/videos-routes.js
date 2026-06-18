@@ -3,7 +3,7 @@ import {
   createVideosSchema,
   deleteVideosSchema,
   getVideosSchema,
-  putVideosSchema,
+  updateVideosSchema,
 } from "../schemas/videos-schema.js";
 
 const database = new DatabasePostgres();
@@ -51,7 +51,7 @@ export async function videosRoutes(app) {
   app.put(
     "/videos/:id",
     {
-      schema: putVideosSchema,
+      schema: updateVideosSchema,
     },
 
     async (request, reply) => {
