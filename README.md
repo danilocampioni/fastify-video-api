@@ -12,6 +12,8 @@ REST API built with Fastify and PostgreSQL.
 - Swagger
 - OpenAPI
 
+---
+
 ## Features
 
 - Create videos
@@ -19,6 +21,8 @@ REST API built with Fastify and PostgreSQL.
 - Update videos
 - Delete videos
 - Swagger/OpenAPI documentation
+
+---
 
 ## Project Structure
 
@@ -32,12 +36,14 @@ src/
 │   ├── database-memory.js
 │   └── db.js
 │
-└── routes/
+├── routes/
 │   └── videos-routes.js
 │
 └── schemas/
-    └── videos-schemas.js
+    └── videos-schema.js
 ```
+
+---
 
 ## Architecture
 
@@ -50,6 +56,8 @@ database/ → persistence and data access layer
 app.js → configures Fastify and plugins
 
 server.js → starts the application
+
+---
 
 ## Request Flow
 
@@ -67,10 +75,11 @@ Database Layer (database-postgres.js)
 PostgreSQL
 ↓
 HTTP Response
+```
 
 This flow separates responsibilities and improves maintainability.
 
-```
+---
 
 ## Validation
 
@@ -87,6 +96,8 @@ Current validations include:
 - minimum description length
 - positive duration values
 
+---
+
 ## Current Status
 
 Implemented features:
@@ -98,40 +109,63 @@ Implemented features:
 - Swagger UI
 - request validation with schemas
 - modular schema architecture
+- public deployment
 
-## Planned to finalize
+---
 
-- deploy and publication
+## Future Improvements
+
+- Docker containerization
+- automated tests
+- authentication and authorization
+- pagination and filtering
+- global error handling
+
+Roadmap items are intentionally separated from the current implementation scope.
+
+---
 
 ## How to Run
 
 Install dependencies:
 
+```bash
 npm install
+```
 
-Run the server:
+Run development mode:
 
+```bash
 npm run dev
+```
 
-or
+Run production mode:
 
-node src/server.js
+```bash
+npm start
+```
+
+---
 
 ## Environment Variables
 
-Create a `.env` file in the root directory:
+Create a `.env` file:
 
+```env
 DATABASE_URL=your_connection_string
+```
+
+---
 
 ## API Documentation
 
 Swagger UI available at:
 
 ```txt
-
 http://localhost:3000/docs
-
 ```
+
+---
 
 ## Endpoints
 
@@ -142,3 +176,15 @@ POST /videos
 PUT /videos/:id
 
 DELETE /videos/:id
+
+---
+
+## Live API
+
+Application:
+
+https://fastify-video-api.onrender.com
+
+Swagger Documentation:
+
+https://fastify-video-api.onrender.com/docs
