@@ -16,7 +16,11 @@ app.register(swagger, {
 });
 
 app.register(swaggerUI, {
-    routePrefix: '/docs'
+    routePrefix: '/docs',
+    uiConfig: {
+        docExpansion: 'list',
+        deepLinking: false
+    },
 });
 
 app.register(videosRoutes);
